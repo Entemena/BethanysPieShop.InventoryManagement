@@ -15,7 +15,7 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
         private string name = string.Empty;
         private string? description;
 
-        private int maxItemsInStock = 0;
+        protected int maxItemsInStock = 0;
 
         public Product(int Id, string Name)
         {
@@ -75,13 +75,13 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
 
         public UnitType UnitType { get; set; }
 
-        public int AmountInStock { get; private set; }
+        public int AmountInStock { get; protected set; }
 
-        public bool IsBelowStockThreshold { get; private set; }
+        public bool IsBelowStockThreshold { get; protected set; }
 
         public Price Price { get; set; }
 
-        public void UseProduct(int items)
+        public virtual void UseProduct(int items)
         {
             if (items <= AmountInStock)
             {
@@ -97,7 +97,7 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
             }
         }
 
-        protected void DecreaseStock(int items, string reason)
+        protected virtual void DecreaseStock(int items, string reason)
         {
             if (items <= AmountInStock)
             {
@@ -113,7 +113,7 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
             Log(reason);
         }
 
-        public void IncreaseStock()
+        public virtual void IncreaseStock()
         {
             AmountInStock++;
 
@@ -127,7 +127,7 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
                 IsBelowStockThreshold = false;
             }
         }
-        public void IncreaseStock(int amount)
+        public virtual void IncreaseStock(int amount)
         {
             int newStock = AmountInStock + amount; 
 
@@ -146,12 +146,12 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
             }
         }
 
-        public string DisplayDetailsShort()
+        public virtual string DisplayDetailsShort()
         {
             return $"{id}. {name} \n{AmountInStock} items in stock.";
         }
 
-        public string DisplayDetailsFull()
+        public virtual string DisplayDetailsFull()
         {
             //StringBuilder sb = new();
 
@@ -166,7 +166,7 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
             return DisplayDetailsFull("");
         }
 
-        public string DisplayDetailsFull(string extraDetails)
+        public virtual string DisplayDetailsFull(string extraDetails)
         {
             StringBuilder sb = new();
 

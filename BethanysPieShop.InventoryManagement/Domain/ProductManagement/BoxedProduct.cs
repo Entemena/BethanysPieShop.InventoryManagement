@@ -21,26 +21,8 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
             AmountPerBox = amountPerBox;
         }
 
-        public string DisplayBoxedProductDetails()
+        public override void UseProduct(int items)
         {
-            //Console.WriteLine(name);
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append("Boxed Product\n");
-
-            sb.Append($"{Id} {Name} \n{Description}\n{Price}\n{AmountInStock} item(s) in stock");
-
-            if (IsBelowStockThreshold)
-            {
-                sb.Append("\n!!STOCK LOW!!");
-            }
-
-            return sb.ToString();
-        }
-
-        public void UseBoxedProduct(int items)
-        {
-
             int smallestMultiple = 0;
             int batchSize;
 
@@ -56,5 +38,96 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
 
             base.UseProduct(batchSize);//use base method explicitly adding the base keyword
         }
+
+        public override string DisplayDetailsFull() {
+            
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("Boxed Product\n");
+
+            sb.Append($"{Id} {Name} \n{Description}\n{Price}\n{AmountInStock} item(s) in stock");
+
+            if (IsBelowStockThreshold)
+            {
+                sb.Append("\n!!STOCK LOW!!");
+            }
+
+            return sb.ToString();
+        }
+
+        public override void IncreaseStock()
+        {
+            IncreaseStock(1);
+            //int newStock = AmountInStock + AmountPerBox;
+            //if (newStock <= maxItemsInStock)
+            //{
+            //    AmountInStock += amountPerBox;
+            //}
+            //else
+            //{
+            //    AmountInStock = maxItemsInStock;
+            //    Log($"{CreateSimpleProductRepresentation} stock overflow. {newStock - AmountInStock} item(s) ordered that couldn't be stored.");
+            //}
+
+            //if (AmountInStock > StockThreshold)
+            //{
+            //    IsBelowStockThreshold = false;
+            //}
+        }
+
+        public override void IncreaseStock(int amount)
+        {
+            int newStock = AmountInStock + amount * amountPerBox;
+
+            if ( newStock <= maxItemsInStock)
+            {
+                AmountInStock += amount * amountPerBox;
+            }
+            else
+            {
+                AmountInStock = maxItemsInStock;
+                Log($"{CreateSimpleProductRepresentation} stock overflow. {newStock - AmountInStock} item(s) ordered that couldn't be stored.");
+            }
+
+            if (AmountInStock > StockThreshold )
+            {
+                IsBelowStockThreshold = false;
+            }
+        }
+        //public string DisplayBoxedProductDetails()
+        //{
+        //    //Console.WriteLine(name);
+        //    StringBuilder sb = new StringBuilder();
+
+        //    sb.Append("Boxed Product\n");
+
+        //    sb.Append($"{Id} {Name} \n{Description}\n{Price}\n{AmountInStock} item(s) in stock");
+
+        //    if (IsBelowStockThreshold)
+        //    {
+        //        sb.Append("\n!!STOCK LOW!!");
+        //    }
+
+        //    return sb.ToString();
+        //}
+
+        //public void UseBoxedProduct(int items)
+        //{
+
+        //    int smallestMultiple = 0;
+        //    int batchSize;
+
+        //    while (true)
+        //    {
+        //        smallestMultiple++;
+        //        if (smallestMultiple * AmountPerBox > items)
+        //        {
+        //            batchSize = smallestMultiple * AmountPerBox;
+        //            break;
+        //        }
+        //    }
+
+        //    base.UseProduct(batchSize);//use base method explicitly adding the base keyword
+        //}
     }
-}
+    }

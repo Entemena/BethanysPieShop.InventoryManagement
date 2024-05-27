@@ -10,7 +10,7 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
 
         public void UseFreshBoxedProduct(int items)
         {
-            UseBoxedProduct(items);
+            UseProduct(items);
         }
 
     }
