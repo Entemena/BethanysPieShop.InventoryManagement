@@ -22,7 +22,7 @@ namespace BethanysPieShop.InventoryManagement.Domain
             ProductRepository productRepository = new();
             inventory = productRepository.LoadProductsFromFile();
 
-            Product p1 = new Product(
+            Product p1 = new StandardProduct(
                 1,
                 "Sugar",
                 "A sweet granule",
@@ -30,7 +30,7 @@ namespace BethanysPieShop.InventoryManagement.Domain
                 UnitType.PerKG,
                 100
                 );
-            Product p2 = new Product(
+            Product p2 = new StandardProduct(
                 2,
                 "Cake Decorations",
                 "Pretty little things",
@@ -38,7 +38,7 @@ namespace BethanysPieShop.InventoryManagement.Domain
                 UnitType.PerItem,
                 100
                 );
-            Product p3 = new Product(
+            Product p3 = new StandardProduct(
                 3,
                 "Cream",
                 "A lovely filling",
@@ -190,7 +190,7 @@ namespace BethanysPieShop.InventoryManagement.Domain
             switch (productType)
             {
                 case "1":
-                    newProduct = new Product(newId, name, description, new Price() { ItemPrice = price, Currency = currency }, unitType, maxInStock);
+                    newProduct = new StandardProduct(newId, name, description, new Price() { ItemPrice = price, Currency = currency }, unitType, maxInStock);
                     break;
 
                 case "2":

@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
 {
-    public partial class Product
+    public abstract partial class Product
     {
         private int id;
         private string name = string.Empty;
@@ -113,20 +113,13 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
             Log(reason);
         }
 
-        public virtual void IncreaseStock()
-        {
-            AmountInStock++;
+        //public virtual void IncreaseStock()
+        //{
+        //    IncreaseStock(1);
 
-            if (!(AmountInStock <= maxItemsInStock))
-            {
-                AmountInStock = maxItemsInStock;
-                Log($"{CreateSimpleProductRepresentation} stock overflow. 1 item(s) ordered that couldn't be stored.");
-            }
-            if (AmountInStock > StockThreshold)
-            {
-                IsBelowStockThreshold = false;
-            }
-        }
+        //}
+
+        public abstract void IncreaseStock();
         public virtual void IncreaseStock(int amount)
         {
             int newStock = AmountInStock + amount; 
