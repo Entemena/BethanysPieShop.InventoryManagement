@@ -101,7 +101,7 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
             return $"{Id};{Name};{Description};{maxItemsInStock};{Price.ItemPrice};{(int)Price.Currency};{(int)UnitType};1;{AmountPerBox};";
         }
 
-        public void ILoggable.Log(string message)
+        void ILoggable.Log(string message)
         {
             Console.WriteLine(message);
         }
