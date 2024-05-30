@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
 {
-    public abstract partial class Product
+    public abstract partial class Product: ICloneable
     {
         private int id;
         private string name = string.Empty;
@@ -175,5 +175,6 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
             return sb.ToString();
         }
 
+        public abstract object Clone();
     }
 }

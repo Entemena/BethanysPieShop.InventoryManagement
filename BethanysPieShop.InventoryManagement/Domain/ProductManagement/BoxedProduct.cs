@@ -106,6 +106,11 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
             Console.WriteLine(message);
         }
 
+        public override object Clone()
+        {
+            return new BoxedProduct(0, this.Name, this.Description, new Price() { ItemPrice = this.Price.ItemPrice, Currency = this.Price.Currency }, this.maxItemsInStock, this.AmountPerBox);
+        }
+
         //public string DisplayBoxedProductDetails()
         //{
         //    //Console.WriteLine(name);

@@ -10,6 +10,11 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
         {
         }
 
+        public override object Clone()
+        {
+            return new BulkProduct(0, this.Name, this.Description, new Price() { ItemPrice = this.Price.ItemPrice, Currency = this.Price.Currency }, this.maxItemsInStock);
+        }
+
         public string ConvertToStringForSaving()
         {
             return $"{Id};{Name};{Description};{maxItemsInStock};{Price.ItemPrice};{(int)Price.Currency};{(int)UnitType};3;";
