@@ -1,4 +1,5 @@
-﻿using BethanysPieShop.InventoryManagement.Domain.General;
+﻿using BethanysPieShop.InventoryManagement.Domain.Contracts;
+using BethanysPieShop.InventoryManagement.Domain.General;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
 {
-    public class BoxedProduct : Product
+    public class BoxedProduct : Product, ISaveable, ILoggable
     {
         private int amountPerBox;
         public int AmountPerBox
@@ -94,6 +95,17 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
                 IsBelowStockThreshold = false;
             }
         }
+
+        public string ConvertToStringForSaving()
+        {
+            return $"{Id};{Name};{Description};{maxItemsInStock};{Price.ItemPrice};{(int)Price.Currency};{(int)UnitType};1;{AmountPerBox};";
+        }
+
+        public void ILoggable.Log(string message)
+        {
+            Console.WriteLine(message);
+        }
+
         //public string DisplayBoxedProductDetails()
         //{
         //    //Console.WriteLine(name);
@@ -130,4 +142,4 @@ namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
         //    base.UseProduct(batchSize);//use base method explicitly adding the base keyword
         //}
     }
-    }
+}

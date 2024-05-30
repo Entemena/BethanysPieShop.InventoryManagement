@@ -1,10 +1,11 @@
 ﻿
+using BethanysPieShop.InventoryManagement.Domain.Contracts;
 using BethanysPieShop.InventoryManagement.Domain.General;
 using System.Text;
 
 namespace BethanysPieShop.InventoryManagement.Domain.ProductManagement
 {
-    public class FreshProduct : Product
+    public class FreshProduct : Product, ISaveable
     {
         public DateTime ExpiryDateTime { get; set; }
         public string? StorageInstructions { get; set; }
